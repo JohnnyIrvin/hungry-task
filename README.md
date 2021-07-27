@@ -1,5 +1,7 @@
 # Hungry Task
 
+[![codecov](https://codecov.io/gh/JohnnyIrvin/hungry-task/branch/main/graph/badge.svg?token=KYOLW0F1TL)](https://codecov.io/gh/JohnnyIrvin/hungry-task)
+
 Hungry Task is a set of tools based around "Tasks".
 
 Task are a unique identifier, a name, and a status of completed or not.
