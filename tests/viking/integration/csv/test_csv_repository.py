@@ -24,12 +24,12 @@ from viking.infrastructure.csv_repository import CsvRepository
 
 def test_csv_repository_save(task: Task, repo: CsvRepository):
     repo.add(task)
-    assert repo.get(task.id) == task
+    assert repo.get(task.id).name == task.name
 
 def test_csv_repository_save_multiple(task: Task, repo: CsvRepository):
     repo.add(task)
     repo.add(task)
-    assert repo.get(task.id) == task
+    assert repo.get(task.id).name == task.name
 
 def test_csv_get_all(repo: CsvRepository):
     repo.add(Task('Task One'))
@@ -76,7 +76,11 @@ def test_list_all(repo: CsvRepository):
     tasks = [Task('Task One'), Task('Task Two')]
     for task in tasks:
         repo.add(task)
-    assert repo.list() == tasks
+        
+    assert [str(task.id) for task in repo.list()] == [str(task.id) for task in tasks]
+
+    for task in tasks:
+        repo.remove(task)
 
 def test_list_all_nonexistent(repo: CsvRepository):
     assert repo.list() == []

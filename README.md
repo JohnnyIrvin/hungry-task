@@ -27,6 +27,11 @@ For CLI where group is command group, and command is group.
 ./cli.py csv add Take out the garbage.
 ```
 
+For API
+```bash
+uvicorn api:api
+```
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

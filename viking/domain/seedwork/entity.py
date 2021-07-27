@@ -18,57 +18,15 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+from dataclasses import dataclass
 from typing import Dict
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 
+@dataclass(unsafe_hash=True)
 class Entity:
     """
     Domain Model based on domain driven design.
     """
-    id: uuid4 = uuid4()
+    id: UUID = uuid4()
 
-    def __eq__(self, o: object) -> bool:
-        """
-        Dunder method for comparing objects.
-
-        Args:
-            o (object): Object to compare.
-
-        Returns:
-            bool: True if entity ids are equal, False otherwise.
-        """        
-        if not isinstance(o, Entity):
-            return False
-        
-        return str(self.id) == str(o.id)
-
-    def __ne__(self, o: object) -> bool:
-        """
-        Dunder method for comparing objects.
-
-        Args:
-            o (object): Object to compare.
-
-        Returns:
-            bool: True if entity ids are not equal, False otherwise.
-        """
-        return not self.__eq__(o)
-
-    def __hash__(self) -> int:
-        """
-        Hash dunder method.
-
-        Returns:
-            int: Entity id.
-        """
-        return hash(self.id)
-
-    def to_dict(self) -> Dict:
-        """
-        Convert entity to dictionary.
-
-        Returns:
-            Dict: Entity attributes.
-        """
-        return {"id": self.id, **vars(self)}

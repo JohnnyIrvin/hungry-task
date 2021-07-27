@@ -42,7 +42,8 @@ def test_task_completed(task):
     assert task.completed
 
 def test_task_completed_set_throws_error(task):
-    with pytest.raises(AttributeError):
+    task.completed = True
+    with pytest.raises(Task.AlreadyCompletedError):
         task.completed = True
 
 def test_task_complete_returns_task(task):

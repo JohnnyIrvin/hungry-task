@@ -82,7 +82,7 @@ class FakeRepository(AbstractRepository):
         Returns:
             list: The list of entities.
         """
-        return self._entities.values()
+        return list(self._entities.values())
 
     @property
     def count(self) -> int:

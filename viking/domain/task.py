@@ -18,17 +18,20 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+from dataclasses import dataclass, field
 from typing import Dict
 
 from viking.domain.seedwork.entity import Entity
 
 
+@dataclass
 class Task(Entity):
     """
     State of unit of work.
     """
     name: str = None
-    _completed: bool = False
+    completed: bool
+    _completed: bool = field(init=False, repr=False, default=False)
 
     @property
     def completed(self) -> bool:
@@ -39,6 +42,20 @@ class Task(Entity):
             bool: True when completed else false
         """
         return self._completed
+
+    @completed.setter
+    def completed(self, value: bool):
+        """
+        Set the completed flag to true.
+
+        Args:
+            value (bool): True if completed else false.
+        """
+        if value:
+            self.complete()
+        else:
+            self._completed = bool(value)
+        
 
     def __init__(self, name: str):
         """
@@ -65,9 +82,6 @@ class Task(Entity):
         self._completed = True
 
         return self
-
-    def to_dict(self) -> Dict:
-        return {**super().to_dict(), "_completed": self._completed}
 
     class AlreadyCompletedError(Exception):
         """

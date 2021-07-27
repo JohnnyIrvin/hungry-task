@@ -18,3 +18,10 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+from viking.domain.seedwork.abstract_repository import AbstractRepository
+from viking.domain.task import Task
+from viking.infrastructure.csv_repository import CsvRepository
+
+
+async def repository() -> AbstractRepository:
+    return CsvRepository('api.csv', Task)

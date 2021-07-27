@@ -18,3 +18,22 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+from dataclasses import asdict
+from uuid import UUID
+
+from api import api
+from api.dependencies import repository
+from api.models import task
+from fastapi.testclient import TestClient
+from pytest import fixture
+from viking.domain.task import Task
+from viking.infrastructure.csv_repository import CsvRepository
+
+async def get_repository() -> CsvRepository:
+    return CsvRepository('api.csv', Task)
+
+@fixture
+def client() -> TestClient:
+    client = TestClient(api)
+    api.dependency_overrides[repository] = get_repository
+    return client

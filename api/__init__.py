@@ -18,3 +18,13 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+from fastapi import FastAPI
+
+from api.routers import tasks
+
+api = FastAPI(
+    title="Hungry Tasks",
+    description="One task a day keeps the doctor away.",
+    version="0.1.0",
+)
+api.include_router(tasks.router)
